@@ -1,0 +1,68 @@
+.cell {
+  width: 70px;
+  height: 70px;
+  background-color: #cdc1b4;
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.tile-2 {
+  background-color: #EEE4DA;
+  color: #776E65;
+}
+
+.tile-4 {
+  background-color: #ECE0C8;
+  color: #776E65;
+}
+
+.tile-8 {
+  background-color: #F2B179;
+  color: #FFFFFF;
+}
+
+.tile-16 {
+  background-color: #F59563;
+  color: #FFFFFF;
+}
+
+.tile-32 {
+  background-color: #F67C5F;
+  color: #FFFFFF;
+}
+
+.tile-64 {
+  background-color: #F65E3B;
+  color: #FFFFFF;
+}
+
+.tile-128 {
+  background-color: #EDCF72;
+  color: #FFFFFF;
+}
+
+.tile-256 {
+  background-color: #EDCC61;
+  color: #FFFFFF;
+}
+
+.tile-512 {
+  background-color: #EDC850;
+  color: #FFFFFF;
+}
+
+.tile-1024 {
+  background-color: #EDC53F;
+  color: #FFFFFF;
+}
+
+.tile-2048 {
+  background-color: #EDC22E;
+  color: #FFFFFF;
+}
+
+
