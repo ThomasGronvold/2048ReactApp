@@ -1,10 +1,1 @@
-#root {
-  /* Grid test */
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 10px;
-  margin: 0 auto;
-  padding: 20px;
-  background-color: #bbada0;
-  border-radius: 10px;
-}
+@import url("https://fonts.googleapis.com/css2?family=Goldman&display=swap");

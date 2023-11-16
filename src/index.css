@@ -4,4 +4,29 @@ body {
   place-items: center;
   min-height: 100vh;
   background-color: rgb(84, 94, 133);
+  font-family: "Goldman";
+  text-align: center;
+}
+
+.buttonDiv {
+  margin-top: 20px;
+  display: flex;
+  justify-content: end;
+  margin-right: 30px;
+}
+
+button {
+  width: 70px;
+  height: 60px;
+  font-family: "Goldman";
+  border-radius: 5px;
+  background-color: #cdc1b4;
+  cursor: pointer;
+  padding: 0;
+}
+
+.victoryButtons {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 40px;
 }

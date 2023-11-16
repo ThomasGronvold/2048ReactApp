@@ -21,7 +21,7 @@ const cellNumber = (cell: number) => {
 
 const Board = ({ boardArray }) => {
   return (
-    <>
+    <div className="board">
       {boardArray.map((row) => {
         return row.map((cell, index) => {
           return (
@@ -31,7 +31,7 @@ const Board = ({ boardArray }) => {
           );
         });
       })}
-    </>
+    </div>
   );
 };
 

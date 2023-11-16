@@ -1,0 +1,29 @@
+h1 {
+    font-size: 3.5rem;
+    color: #000000bb;
+}
+
+.pointsBar {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.points {
+    display: flex;
+    flex-direction: column;
+    background-color: #cdc1b4;
+    border-radius: 5px;
+    align-items: center;
+    justify-content: center;
+    width: 70px;
+    height: 70px;
+}
+
+.points p {
+    margin-bottom: 0;
+}
+
+.points h3 {
+    margin-top: 0;
+}
