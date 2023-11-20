@@ -12,8 +12,9 @@ type BoardArray = (null | number)[][];
 /* Variables */
 const SPAWN_CHANCE = 0.9;
 const MAX_TILE_VALUE = 2048;
+let gameOver: boolean = false;
 
-const updateBoardArray = (boardArray: BoardArray, direction: string): { newBoardArray: BoardArray; mergedVal: number; maxMergedNumber: number } => {
+const updateBoardArray = (boardArray: BoardArray, direction: string): { newBoardArray: BoardArray; mergedVal: number; maxMergedNumber: number; gameOver: boolean } => {
   /* Variables */
   const newBoardArray: BoardArray = JSON.parse(JSON.stringify(boardArray));
   const ROWS: number = newBoardArray.length;
@@ -63,9 +64,10 @@ const updateBoardArray = (boardArray: BoardArray, direction: string): { newBoard
   // Check if the new board is different from the current board, indicating that a move/merge has happend, and if so, add a number.
   if (!arraysEqual(boardArray, newBoardArray)) {
     addNum(newBoardArray); /* Adds a number (2 / 4 ) in a random cell (if available), 10% chance for a 4 to spawn */
+    gameOver = checkGameOver(newBoardArray, ROWS, COLS);
   }
-
-  return { newBoardArray, mergedVal, maxMergedNumber };
+  
+  return { newBoardArray, mergedVal, maxMergedNumber, gameOver };
 };
 
 /**
@@ -236,6 +238,38 @@ const arraysEqual = (boardArray: (number | null)[][], newBoardArray: (number | n
       return false;
     }
   }
+  return true;
+};
+
+/**
+ * Loops through the array and checks if any legal moves are found, if not, then it's game over
+ * @param boardArray - The altered 2D array after a valid input has been made
+ * @param ROWS - The length of the arrays rows
+ * @param COLS - The length of the arrays cols
+ * @returns True if the game is over, false otherwise.
+ */
+const checkGameOver = (boardArray: (number | null)[][], ROWS: number, COLS: number) => {
+  for (let x = 0; x < ROWS; x++) {
+    for (let y = 0; y < COLS; y++) {
+      const currentCell = boardArray[x][y];
+
+      if (boardArray[x][y] === null) {
+        return false;
+      }
+
+      // Check for adjacent cells with the same value
+      if (y < COLS - 1 && currentCell !== MAX_TILE_VALUE && currentCell === boardArray[x][y + 1]) {
+        return false;
+      }
+
+      // Check bottom neighbor
+      if (x < ROWS - 1 && currentCell !== MAX_TILE_VALUE && currentCell === boardArray[x + 1][y]) {
+        return false;
+      }
+    }
+  }
+
+  // Game over
   return true;
 };
 

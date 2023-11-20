@@ -3,8 +3,7 @@ import "./App.css";
 import { updateBoardArray } from "./gameLogic/updateBoardArray";
 import { Board } from "./components/board/board";
 import { Points } from "./components/points/points";
-import TestButton from "./components/resetButton/buttonTest";
-import Victory from "./components/victory/victory";
+import GameResult from "./components/gameResult/gameResult";
 import Btn from "./components/btn/btn";
 import React from "react";
 
@@ -22,9 +21,11 @@ function App() {
   const [board, setBoard] = useState<(number | null)[][]>(boardInit());
   const [hasWon, setWon] = useState<boolean>(false);
   const [continueGame, setContinueGame] = useState<boolean>(false);
+  const [gameOver, setGameOver] = useState<boolean>(false);
 
   // Function to reset the game state
-  const onclickReset = () => (setBoard(boardInit()), setPoints(0), setWon(false), setContinueGame(false));
+  const onClickReset = () => (setBoard(boardInit()), setPoints(0), setWon(false), setContinueGame(false), setGameOver(false));
+  const onClickResume = () => (setWon(false), setContinueGame(true), setGameOver(false));
 
   // Effect hook to handle keyboard events
   useEffect(() => {
@@ -36,12 +37,18 @@ function App() {
         if (updatedBoard.maxMergedNumber === 2048 && !continueGame) {
           setWon(true);
         }
+        if (updatedBoard.gameOver) {
+          setGameOver(true);
+        }
       } else if (event.key === Direction.Down || event.key === "s") {
         const updatedBoard = updateBoardArray(board, "Down");
         setBoard(updatedBoard.newBoardArray);
         setPoints(points + updatedBoard.mergedVal);
         if (updatedBoard.maxMergedNumber === 2048 && !continueGame) {
           setWon(true);
+        }
+        if (updatedBoard.gameOver) {
+          setGameOver(true);
         }
       } else if (event.key === Direction.Left || event.key === "a") {
         const updatedBoard = updateBoardArray(board, "Left");
@@ -50,12 +57,18 @@ function App() {
         if (updatedBoard.maxMergedNumber === 2048 && !continueGame) {
           setWon(true);
         }
+        if (updatedBoard.gameOver) {
+          setGameOver(true);
+        }
       } else if (event.key === Direction.Right || event.key === "d") {
         const updatedBoard = updateBoardArray(board, "Right");
         setBoard(updatedBoard.newBoardArray);
         setPoints(points + updatedBoard.mergedVal);
         if (updatedBoard.maxMergedNumber === 2048 && !continueGame) {
           setWon(true);
+        }
+        if (updatedBoard.gameOver) {
+          setGameOver(true);
         }
       }
     };
@@ -72,21 +85,33 @@ function App() {
   // Render components based on game state
   return (
     <>
-      {hasWon && !continueGame ? (
+      {gameOver ? (
         <>
-          <Victory />
-          <div className="victoryButtons">
-            <Btn txt="New Game" onClick={onclickReset} />
-            <Btn txt="Resume" onClick={() => (setWon(false), setContinueGame(true))} />
+          <GameResult title="Game Over!" txt="No more valid moves, would you like to see your board?" />
+          <div className="gameResultButtons">
+            <Btn txt="Try Again" onClick={onClickReset} />
+            <Btn txt="View Board" onClick={onClickResume} />
           </div>
         </>
       ) : (
         <>
-          <Points points={points} />
-          <Board boardArray={board} />
-          <div className="buttonDiv">
-            <Btn txt="New Game" onClick={onclickReset} />
-          </div>
+          {hasWon ? (
+            <>
+              <GameResult title="You Won!" txt="Would you like to keep going?" />
+              <div className="gameResultButtons">
+                <Btn txt="New Game" onClick={onClickReset} />
+                <Btn txt="Resume" onClick={onClickResume} />
+              </div>
+            </>
+          ) : (
+            <>
+              <Points points={points} />
+              <Board boardArray={board} />
+              <div className="buttonDiv">
+                <Btn txt="New Game" onClick={onClickReset} />
+              </div>
+            </>
+          )}
         </>
       )}
     </>
