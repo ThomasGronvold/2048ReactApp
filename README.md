@@ -8,6 +8,7 @@ A simple 2048 game built with React and Typescript.
 2. cd 2048ReactApp
 3. npm install
 4. npm start
+5. Open the app in your web browser by navigating to [http://localhost:5174/](http://localhost:5174/).
 
 ## How to Play
 
